@@ -1,3 +1,3 @@
-# cijepise
+# CijepiSe
 
 Završni rad.
