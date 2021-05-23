@@ -84,7 +84,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     } else {
                       Database.getUserLogin(http.Client(), oibController.text).then((result) {
-                        print('Result: $result');
                         if (result == null) {
                           Fluttertoast.showToast(
                             msg: 'Molimo vas da se registrirate',
