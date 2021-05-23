@@ -14,6 +14,7 @@ class Database {
   static const _UPDATE_USER_ACTION = 'UPDATE_USER';
   static const _GET_ZUPANIJE_ACTION = 'GET_ZUPANIJE';
   static const _GET_OIB_ACTION = 'GET_OIB';
+  static const _GET_USER_LOGIN_ACTION = 'GET_USER_LOGIN';
 
   static Future<List<User>> getUsers(http.Client client, String oib) async {
     try {
@@ -169,5 +170,48 @@ class Database {
     final parsed = json.decode(responseBody);
 
     return parsed[0].map<User>((json) => User.fromJson(json)).toList();
+  }
+
+  static Future<List> getUserLogin(http.Client client, String oib) async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = _GET_USER_LOGIN_ACTION;
+      map['OIB'] = oib;
+      final response = await client.post(Uri.http(ROOT, PATH), body: map);
+
+      if (response.statusCode == 200) {
+        List<User> list = parseUserLogin(response.body);
+        List users = [];
+
+        if (list == null) {
+          return null;
+        } else {
+          for (int i = 0; i < list.length; i++) {
+            Map<String, dynamic> user = {
+              'oib': list[i].oib,
+              'lozinka': list[i].lozinka,
+            };
+
+            users.add(user);
+          }
+        }
+
+        return users;
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
+  static List<User> parseUserLogin(String responseBody) {
+    final parsed = json.decode(responseBody);
+
+    if (parsed.length == 0) {
+      return null;
+    } else {
+      return parsed[0].map<User>((json) => User.fromJson(json)).toList();
+    }
   }
 }
