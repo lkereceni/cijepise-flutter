@@ -5,8 +5,10 @@ class InputContainer extends StatelessWidget {
   final String hintText;
   final double width;
   final bool obscureText;
+  final TextEditingController controller;
 
-  InputContainer({@required this.hintText, @required this.width, @required this.obscureText});
+  InputContainer(
+      {@required this.hintText, @required this.width, @required this.obscureText, @required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -20,6 +22,7 @@ class InputContainer extends StatelessWidget {
       height: 50.0,
       child: TextField(
         obscureText: obscureText,
+        controller: controller,
         style: TextStyle(
           color: Color(kInputTextColor),
         ),

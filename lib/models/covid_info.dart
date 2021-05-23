@@ -1,5 +1,3 @@
-import 'package:flutter/material.dart';
-
 class CovidInfo {
   final int confirmed;
   final int deaths;
