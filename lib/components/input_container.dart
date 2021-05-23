@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cijepise/utilities/constants.dart';
+import 'package:flutter/services.dart';
 
 class InputContainer extends StatelessWidget {
   final String hintText;
@@ -21,6 +22,8 @@ class InputContainer extends StatelessWidget {
       width: width,
       height: 50.0,
       child: TextField(
+        keyboardType: TextInputType.text,
+        textCapitalization: TextCapitalization.sentences,
         obscureText: obscureText,
         controller: controller,
         style: TextStyle(

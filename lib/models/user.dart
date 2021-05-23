@@ -5,7 +5,7 @@ class User {
   final String adresa;
   final String grad;
   final String zupanija;
-  final int oib;
+  final String oib;
   final int datumRodenja;
   final String lozinka;
 
