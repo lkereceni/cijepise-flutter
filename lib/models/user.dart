@@ -6,19 +6,20 @@ class User {
   final String grad;
   final String zupanija;
   final String oib;
-  final int datumRodenja;
+  final String datumRodenja;
   final String lozinka;
 
-  User(
-      {this.id,
-      this.ime,
-      this.prezime,
-      this.adresa,
-      this.grad,
-      this.zupanija,
-      this.oib,
-      this.datumRodenja,
-      this.lozinka});
+  User({
+    this.id,
+    this.ime,
+    this.prezime,
+    this.adresa,
+    this.grad,
+    this.zupanija,
+    this.oib,
+    this.datumRodenja,
+    this.lozinka,
+  });
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -29,7 +30,7 @@ class User {
       grad: json['grad'],
       zupanija: json['zupanija'],
       oib: json['OIB'],
-      datumRodenja: json['datum_rodeja'],
+      datumRodenja: json['datum_rodenja'],
       lozinka: json['lozinka'],
     );
   }
