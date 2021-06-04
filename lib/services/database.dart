@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cijepise/models/vaccination_info.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 
@@ -15,28 +16,9 @@ class Database {
   static const _GET_ZUPANIJE_ACTION = 'GET_ZUPANIJE';
   static const _GET_OIB_ACTION = 'GET_OIB';
   static const _GET_USER_LOGIN_ACTION = 'GET_USER_LOGIN';
-
-  static Future<List<User>> getUsers(http.Client client, String oib) async {
-    try {
-      var map = Map<String, dynamic>();
-      map['action'] = _GET_USER_ACTION;
-      map['OIB'] = oib;
-      final response = await client.post(Uri.http(ROOT, PATH), body: map);
-
-      if (response.statusCode == 200) {
-        List<User> list = parseUser(response.body);
-        return list;
-      }
-    } on Exception catch (e) {
-      print(e);
-    }
-  }
-
-  static List<User> parseUser(String responseBody) {
-    final parsed = json.decode(responseBody);
-
-    return parsed[0].map<User>((json) => User.fromJson(json[0])).toList();
-  }
+  static const _GET_USER_VACCINATION_INFO_ACTION = 'GET_USER_VACCINATION_INFO';
+  static const _ADD_USER_VACCINATION_ACTION = 'ADD_USER_VACCINATION';
+  static const _GET_USER_VACCINE_NAME = 'GET_USER_VACCINE_NAME';
 
   static Future<String> addUser(
     String ime,
@@ -75,7 +57,7 @@ class Database {
   }
 
   static Future<String> updateUser(
-    int id,
+    String id,
     String ime,
     String prezime,
     String adresa,
@@ -83,20 +65,18 @@ class Database {
     String zupanija,
     int oib,
     int datumRodenja,
-    String lozinka,
   ) async {
     try {
       var map = Map<String, dynamic>();
       map['action'] = _UPDATE_USER_ACTION;
-      map['id'] = id;
+      map['ID'] = id;
       map['ime'] = ime;
       map['prezime'] = prezime;
       map['adresa'] = adresa;
       map['grad'] = grad;
       map['zupanija'] = zupanija;
-      map['OIB'] = oib;
-      map['datum_rodenja'] = datumRodenja;
-      map['lozinka'] = lozinka;
+      map['OIB'] = oib.toString();
+      map['datum_rodenja'] = datumRodenja.toString();
 
       final response = await http.post(Uri.http(ROOT, PATH), body: map);
 
@@ -135,11 +115,14 @@ class Database {
     if (query == null || query == '') {
       return null;
     } else {
-      final String response = await rootBundle.loadString('lib/data/gradovi.json');
+      final String response =
+          await rootBundle.loadString('lib/data/gradovi.json');
       final data = await json.decode(response);
       List gradovi = [];
 
-      gradovi = data.where((elem) => elem['zupanija'].toString().contains(query)).toList();
+      gradovi = data
+          .where((elem) => elem['zupanija'].toString().contains(query))
+          .toList();
 
       return gradovi;
     }
@@ -213,5 +196,119 @@ class Database {
     } else {
       return parsed[0].map<User>((json) => User.fromJson(json)).toList();
     }
+  }
+
+  static Future<List> getUserVaccinationInfo(
+      http.Client client, String oib) async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = _GET_USER_VACCINATION_INFO_ACTION;
+      map['OIB'] = oib;
+      final response = await client.post(Uri.http(ROOT, PATH), body: map);
+
+      if (response.statusCode == 200) {
+        List<VaccinationInfo> list = parseUserVaccinationInfo(response.body);
+
+        if (list == null) {
+          return null;
+        } else {
+          return list;
+        }
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
+  static List<VaccinationInfo> parseUserVaccinationInfo(String responseBody) {
+    final parsed = json.decode(responseBody);
+
+    if (parsed.length == 0) {
+      return null;
+    } else {
+      return parsed[0]
+          .map<VaccinationInfo>((json) => VaccinationInfo.fromJson(json))
+          .toList();
+    }
+  }
+
+  static Future<List> getUser(http.Client client, String oib) async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = _GET_USER_ACTION;
+      map['OIB'] = oib;
+      final response = await client.post(Uri.http(ROOT, PATH), body: map);
+
+      if (response.statusCode == 200) {
+        List<User> list = parseUser(response.body);
+
+        if (list == null) {
+          return null;
+        } else {
+          return list;
+        }
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
+  static List<User> parseUser(String responseBody) {
+    final parsed = json.decode(responseBody);
+
+    if (parsed.length == 0) {
+      return null;
+    } else {
+      return parsed[0].map<User>((json) => User.fromJson(json)).toList();
+    }
+  }
+
+  static Future<String> addUserVaccination(
+    String oib,
+  ) async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = _ADD_USER_VACCINATION_ACTION;
+      map['OIB'] = oib;
+
+      final response = await http.post(Uri.http(ROOT, PATH), body: map);
+
+      if (response.statusCode == 200) {
+        return response.body;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static Future<List<dynamic>> getVaccineName(
+      http.Client client, String oib) async {
+    try {
+      var map = Map<String, dynamic>();
+      map['action'] = _GET_USER_VACCINE_NAME;
+      map['OIB'] = oib;
+      final response = await client.post(Uri.http(ROOT, PATH), body: map);
+
+      if (response.statusCode == 200) {
+        //List vaccineName = parseVaccineName(response.body);
+        List<dynamic> vaccineName = json.decode(response.body);
+        //print('vaccineName: ${vaccineName[0]}');
+
+        return vaccineName[0];
+      }
+    } on Exception catch (e) {
+      print(e);
+    }
+  }
+
+  static List<String> parseVaccineName(String responseBody) {
+    final parsed = json.decode(responseBody);
+    print('parsed: ${parsed[0]}');
+
+    return parsed[0]['naziv_cjepiva'].fromJson().toList();
   }
 }

@@ -5,3 +5,4 @@ const kHintTextColor = 0xFFC6C6C6;
 const kInputTextColor = 0xFF31312F;
 const kDarkGreyFontColor = 0xFF1D1D1B;
 const kGreenColor = 0xFF4CC674;
+const kYellowColor = 0xFFFDB338;
