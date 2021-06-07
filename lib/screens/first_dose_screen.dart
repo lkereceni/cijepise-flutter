@@ -85,6 +85,9 @@ class _FirstDoseScreenState extends State<FirstDoseScreen> {
 
       selectedGradItem = obtainedGrad;
       selectedZupanijaItem = obtainedZupanija;
+
+      Database.getVaccineName(http.Client(), userOib)
+          .then((value) => vaccineName = value[0]['naziv_cjepiva']);
     });
   }
 
@@ -111,11 +114,14 @@ class _FirstDoseScreenState extends State<FirstDoseScreen> {
   }
 
   Color getStatusColor() {
-    if (vaccinationStatus == 'na čekanju') {
+    if (vaccinationStatus == 'na čekanju' ||
+        vaccinationStatus == 'Na čekanju') {
       return Color(kDarkBlueColor);
-    } else if (vaccinationStatus == 'naručen') {
+    } else if (vaccinationStatus == 'naručen' ||
+        vaccinationStatus == 'Naručen') {
       return Color(kYellowColor);
-    } else if (vaccinationStatus == 'cijepljen') {
+    } else if (vaccinationStatus == 'cijepljen' ||
+        vaccinationStatus == 'Cijepljen') {
       return Color(kGreenColor);
     } else {
       return Colors.black;
@@ -123,7 +129,8 @@ class _FirstDoseScreenState extends State<FirstDoseScreen> {
   }
 
   Widget getStatus() {
-    if (vaccinationStatus == 'na čekanju') {
+    if (vaccinationStatus == 'na čekanju' ||
+        vaccinationStatus == 'Na čekanju') {
       return RoundedButton(
         text: 'Promijeni podatke',
         onClick: () async {
@@ -143,7 +150,8 @@ class _FirstDoseScreenState extends State<FirstDoseScreen> {
               MaterialPageRoute(builder: (context) => DataChangeScreen()));
         },
       );
-    } else if (vaccinationStatus == 'naručen') {
+    } else if (vaccinationStatus == 'naručen' ||
+        vaccinationStatus == 'Naručen') {
       return RoundedButton(
         text: 'Promijeni podatke',
         onClick: () async {
@@ -163,25 +171,18 @@ class _FirstDoseScreenState extends State<FirstDoseScreen> {
               MaterialPageRoute(builder: (context) => DataChangeScreen()));
         },
       );
-    } else if (vaccinationStatus == 'cijepljen') {
+    } else if (vaccinationStatus == 'cijepljen' ||
+        vaccinationStatus == 'Cijepljen') {
       return Container();
     } else {
       return Container();
     }
   }
 
-  String getVaccineName() {
-    Database.getVaccineName(http.Client(), userOib).then((result) {
-      vaccineName = result[0]['naziv_cjepiva'];
-    });
-
-    return vaccineName;
-  }
-
   @override
   void initState() {
     getPrefs();
-    getVaccineName();
+
     super.initState();
   }
 
@@ -267,9 +268,10 @@ class _FirstDoseScreenState extends State<FirstDoseScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                vaccinationStatus == 'cijepljen'
+                                vaccinationStatus == 'cijepljen' ||
+                                        vaccinationStatus == 'Cijepljen'
                                     ? 'Cijepili ste se sa\nprvom dozom COVID-19 cjepiva.'
-                                    : 'Naručeni ste za\nprvu dozuCOVID-19 cjepiva',
+                                    : 'Naručeni ste za\nprvu dozu COVID-19 cjepiva',
                                 style: TextStyle(
                                   color: Color(kDarkGreyFontColor),
                                   fontSize: 18.0,

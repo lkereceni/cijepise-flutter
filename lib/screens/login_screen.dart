@@ -64,25 +64,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: RoundedButton(
                   text: 'Prijava',
                   onClick: () async {
-                    final SharedPreferences prefs = await SharedPreferences.getInstance();
-                    //prefs.setString('oib', oibController.text);
-                    /*Database.getUserLogin(http.Client(), '12345678901').then((result) {
-                      Database.getUser(http.Client(), oibController.text).then((result) {
-                        prefs.setString('id', result[0].id);
-                        prefs.setString('oib', result[0].oib);
-                        prefs.setString('ime', result[0].ime);
-                        prefs.setString('prezime', result[0].prezime);
-                        prefs.setString('adresa', result[0].adresa);
-                        prefs.setString('grad', result[0].grad);
-                        prefs.setString('zupanija', result[0].zupanija);
-                        prefs.setString('datumRodenja', result[0].datumRodenja);
-                      });
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()),
-                      );
-                    });*/
-
+                    final SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
                     if (oibController.text == '') {
                       Fluttertoast.showToast(
                         msg: 'Morate upisati vaš OIB',
@@ -99,7 +82,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         backgroundColor: Colors.red,
                         textColor: Colors.white,
                       );
-                    } else if (oibController.text.contains(RegExp(r'[a-zA-Z]'))) {
+                    } else if (oibController.text
+                        .contains(RegExp(r'[a-zA-Z]'))) {
                       Fluttertoast.showToast(
                         msg: 'OIB ne smije sadržavati slova',
                         toastLength: Toast.LENGTH_SHORT,
@@ -108,7 +92,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         textColor: Colors.white,
                       );
                     } else {
-                      Database.getUserLogin(http.Client(), oibController.text).then((result) {
+                      Database.getUserLogin(http.Client(), oibController.text)
+                          .then((result) {
                         if (result == null) {
                           Fluttertoast.showToast(
                             msg: 'Molimo vas da se registrirate',
@@ -117,7 +102,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             backgroundColor: Colors.red,
                             textColor: Colors.white,
                           );
-                        } else if (lozinkaController.text != result[0]['lozinka']) {
+                        } else if (lozinkaController.text !=
+                            result[0]['lozinka']) {
                           Fluttertoast.showToast(
                             msg: 'Upisali ste pogrešnu lozinku',
                             toastLength: Toast.LENGTH_SHORT,
@@ -126,7 +112,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             textColor: Colors.white,
                           );
                         } else {
-                          Database.getUser(http.Client(), oibController.text).then((result) {
+                          Database.getUser(http.Client(), oibController.text)
+                              .then((result) {
                             prefs.setString('id', result[0].id);
                             prefs.setString('ime', result[0].ime);
                             prefs.setString('prezime', result[0].prezime);
@@ -134,11 +121,13 @@ class _LoginScreenState extends State<LoginScreen> {
                             prefs.setString('adresa', result[0].adresa);
                             prefs.setString('grad', result[0].grad);
                             prefs.setString('zupanija', result[0].zupanija);
-                            prefs.setString('datumRodenja', result[0].datumRodenja);
+                            prefs.setString(
+                                'datumRodenja', result[0].datumRodenja);
                           });
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => HomeScreen()),
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()),
                           );
                         }
                       });

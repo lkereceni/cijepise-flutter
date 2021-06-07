@@ -32,8 +32,10 @@ class _HomeScreenState extends State<HomeScreen> {
           future: fetchCovidInfo(http.Client()),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              int newCases = snapshot.data.last.confirmed - snapshot.data[snapshot.data.length - 2].confirmed;
-              int deaths = snapshot.data.last.deaths - snapshot.data[snapshot.data.length - 2].deaths;
+              int newCases = snapshot.data.last.confirmed -
+                  snapshot.data[snapshot.data.length - 2].confirmed;
+              int deaths = snapshot.data.last.deaths -
+                  snapshot.data[snapshot.data.length - 2].deaths;
 
               return Padding(
                 padding: EdgeInsets.all(24.0),
@@ -88,7 +90,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsets.only(left: 24.0, bottom: 30.0),
+                                  padding:
+                                      EdgeInsets.only(left: 24.0, bottom: 30.0),
                                   child: SvgPicture.asset(
                                     'assets/icons/coronavirus.svg',
                                     color: Color(kGreenColor),
@@ -98,10 +101,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 ),
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsets.only(left: 60.0, top: 10.0),
+                                        padding: EdgeInsets.only(
+                                            left: 60.0, top: 10.0),
                                         child: Text(
                                           'COVID-19',
                                           style: TextStyle(
@@ -145,10 +150,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                 ),
                                 style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                                  backgroundColor: MaterialStateProperty.all(
+                                      Colors.transparent),
                                   alignment: Alignment.center,
                                   elevation: MaterialStateProperty.all(0.0),
-                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
                                     RoundedRectangleBorder(
                                       side: BorderSide(
                                         color: Colors.white,
@@ -162,7 +169,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onPressed: () {
                                   Navigator.push(
                                     context,
-                                    MaterialPageRoute(builder: (context) => AppointmentScreen()),
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            AppointmentScreen()),
                                   );
                                 },
                               ),
@@ -219,12 +228,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: ButtonStyle(
                                 alignment: Alignment.center,
                                 elevation: MaterialStateProperty.all(0.0),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                 ),
-                                backgroundColor: MaterialStateProperty.all(Colors.white),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.white),
                               ),
                               onPressed: () {},
                             ),
@@ -237,7 +248,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               child: Row(
                                 children: [
                                   Padding(
-                                    padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                                    padding: EdgeInsets.only(
+                                        left: 16.0, right: 16.0),
                                     child: SvgPicture.asset(
                                       'assets/icons/microscope.svg',
                                       height: 40.0,
@@ -260,12 +272,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: ButtonStyle(
                                 alignment: Alignment.center,
                                 elevation: MaterialStateProperty.all(0.0),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                 ),
-                                backgroundColor: MaterialStateProperty.all(Colors.white),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.white),
                               ),
                               onPressed: () {},
                             ),
@@ -300,12 +314,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               style: ButtonStyle(
                                 alignment: Alignment.center,
                                 elevation: MaterialStateProperty.all(0.0),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10.0),
                                   ),
                                 ),
-                                backgroundColor: MaterialStateProperty.all(Colors.white),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.white),
                               ),
                               onPressed: () {},
                             ),
