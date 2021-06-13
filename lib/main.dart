@@ -70,7 +70,6 @@ class _CijepiSeAppState extends State<CijepiSeApp> {
     });
 
     getDeviceToken();
-    //getAndroidInfo();
   }
 
   getDeviceToken() async {
