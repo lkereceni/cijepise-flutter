@@ -17,7 +17,10 @@ dependencies:
   toast: ^0.1.5
   fluttertoast: ^8.0.7
   shared_preferences: ^2.0.5
+  firebase_core: ^1.2.1
   firebase_messaging: ^10.0.1
+  device_info: ^2.0.2
+  flutter_local_notifications: ^5.0.0
 
 dev_dependencies:
   flutter_test:
