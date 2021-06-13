@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:device_info/device_info.dart';
 
 //Components
 import 'package:cijepise/components/input_container.dart';
@@ -20,6 +21,8 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+  DeviceInfoPlugin deviceInfoPlugin = DeviceInfoPlugin();
+
   //Controllers
   TextEditingController imeController = new TextEditingController(),
       prezimeController = new TextEditingController(),
@@ -56,6 +59,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         datePicked = true;
       });
     }
+  }
+
+  void getAndroidInfo() async {
+    AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
+    print(androidInfo.androidId);
   }
 
   @override
@@ -116,7 +124,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: FutureBuilder(
                   future: Database.getZupanije(http.Client()),
                   builder: (context, snapshot) {
-                    if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+                    if (!snapshot.hasData)
+                      return Center(child: CircularProgressIndicator());
                     return Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
@@ -144,7 +153,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             fontFamily: 'UniSans',
                             fontSize: 16.0,
                           ),
-                          items: snapshot.data.map<DropdownMenuItem<String>>((item) {
+                          items: snapshot.data
+                              .map<DropdownMenuItem<String>>((item) {
                             return DropdownMenuItem<String>(
                               child: Text(item.nazivZupanije),
                               value: item.nazivZupanije,
@@ -172,7 +182,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 child: FutureBuilder(
                   future: Database.gradoviJson(zupanijaQuery),
                   builder: (context, snapshot) {
-                    if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+                    if (!snapshot.hasData)
+                      return Center(child: CircularProgressIndicator());
                     return Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
@@ -202,7 +213,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             fontFamily: 'UniSans',
                             fontSize: 16.0,
                           ),
-                          items: snapshot.data.map<DropdownMenuItem<String>>((item) {
+                          items: snapshot.data
+                              .map<DropdownMenuItem<String>>((item) {
                             return DropdownMenuItem<String>(
                               child: Text(item['mjesto']),
                               value: item['mjesto'],
@@ -303,9 +315,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         backgroundColor: Colors.red,
                         textColor: Colors.white,
                       );
-                    } else if (imeController.text.contains(RegExp(r'[0-9!@#$%^&*(),.?":{}|<>]'))) {
+                    } else if (imeController.text
+                        .contains(RegExp(r'[0-9!@#$%^&*(),.?":{}|<>]'))) {
                       Fluttertoast.showToast(
-                        msg: 'Ime ne smije sadržavati brojeve ili specijalne znakove',
+                        msg:
+                            'Ime ne smije sadržavati brojeve ili specijalne znakove',
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                         backgroundColor: Colors.red,
@@ -319,9 +333,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         backgroundColor: Colors.red,
                         textColor: Colors.white,
                       );
-                    } else if (prezimeController.text.contains(RegExp(r'[0-9!@#$%^&*(),.?":{}|<>]'))) {
+                    } else if (prezimeController.text
+                        .contains(RegExp(r'[0-9!@#$%^&*(),.?":{}|<>]'))) {
                       Fluttertoast.showToast(
-                        msg: 'Prezime ne smije sadržavati brojeve ili specijalne znakove',
+                        msg:
+                            'Prezime ne smije sadržavati brojeve ili specijalne znakove',
                         toastLength: Toast.LENGTH_SHORT,
                         gravity: ToastGravity.BOTTOM,
                         backgroundColor: Colors.red,
@@ -359,7 +375,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         backgroundColor: Colors.red,
                         textColor: Colors.white,
                       );
-                    } else if (oibController.text.contains(RegExp(r'[a-zA-Z]'))) {
+                    } else if (oibController.text
+                        .contains(RegExp(r'[a-zA-Z]'))) {
                       Fluttertoast.showToast(
                         msg: 'OIB ne smije sadržavati slova',
                         toastLength: Toast.LENGTH_SHORT,
@@ -391,7 +408,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         backgroundColor: Colors.red,
                         textColor: Colors.white,
                       );
-                    } else if (ponovljenaLozinkaController.text != lozinkaController.text) {
+                    } else if (ponovljenaLozinkaController.text !=
+                        lozinkaController.text) {
                       Fluttertoast.showToast(
                         msg: 'Lozinke nisu iste',
                         toastLength: Toast.LENGTH_SHORT,
@@ -421,7 +439,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             lozinkaController.text,
                           );
 
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LoginScreen()));
                         }
                       });
                     }
