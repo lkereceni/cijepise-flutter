@@ -12,6 +12,9 @@ import 'package:cijepise/components/input_container.dart';
 
 //Services
 import 'package:cijepise/services/database.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+String token;
 
 class RegisterScreen extends StatefulWidget {
   static const id = 'registerScreen';
@@ -61,9 +64,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
   }
 
-  void getAndroidInfo() async {
-    AndroidDeviceInfo androidInfo = await deviceInfoPlugin.androidInfo;
-    print(androidInfo.androidId);
+  Future getPrefs() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    String obtainedToken = prefs.getString('token');
+
+    setState(() {
+      token = obtainedToken;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getPrefs();
   }
 
   @override
@@ -437,6 +450,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             int.parse(oibController.text),
                             int.parse(databaseFormatter.format(selectedDate)),
                             lozinkaController.text,
+                            token,
                           );
 
                           Navigator.push(

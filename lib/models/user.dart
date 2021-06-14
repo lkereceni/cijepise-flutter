@@ -8,6 +8,7 @@ class User {
   final String oib;
   final String datumRodenja;
   final String lozinka;
+  final String token;
 
   User({
     this.id,
@@ -19,6 +20,7 @@ class User {
     this.oib,
     this.datumRodenja,
     this.lozinka,
+    this.token,
   });
 
   factory User.fromJson(Map<String, dynamic> json) {
@@ -32,6 +34,7 @@ class User {
       oib: json['OIB'],
       datumRodenja: json['datum_rodenja'],
       lozinka: json['lozinka'],
+      token: json['token'],
     );
   }
 }

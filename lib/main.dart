@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //screens
 import 'screens/welcome_screen.dart';
@@ -72,9 +73,14 @@ class _CijepiSeAppState extends State<CijepiSeApp> {
     getDeviceToken();
   }
 
+  Future<void> setPrefs(String token) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('token', token);
+  }
+
   getDeviceToken() async {
     String token = await FirebaseMessaging.instance.getToken();
-    print(token);
+    setPrefs(token);
   }
 
   @override
