@@ -29,9 +29,10 @@ class Database {
     int oib,
     int datumRodenja,
     String lozinka,
+    String token,
   ) async {
     print(
-        'Ime: $ime, Prezime: $prezime, Adresa: $adresa, Grad: $grad, Zupanija: $zupanija, OIB: $oib, DatumRodenja: $datumRodenja, Lozinka: $lozinka');
+        'Ime: $ime, Prezime: $prezime, Adresa: $adresa, Grad: $grad, Zupanija: $zupanija, OIB: $oib, DatumRodenja: $datumRodenja, Lozinka: $lozinka, Token: $token');
     try {
       var map = Map<String, dynamic>();
       map['action'] = _ADD_USER_ACTION;
@@ -43,10 +44,9 @@ class Database {
       map['OIB'] = oib.toString();
       map['datum_rodenja'] = datumRodenja.toString();
       map['lozinka'] = lozinka;
+      map['token'] = token;
 
       final response = await http.post(Uri.http(ROOT, PATH), body: map);
-
-      print('Response: ${response.body}');
 
       if (response.statusCode == 200) {
         return response.body;
