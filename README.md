@@ -1,3 +1,5 @@
 # Cijepi se
 
-Završni rad.
+Aplikacija napravljena u svrhu završnog rada.
+
+![alt WelcomeScreen](https://prnt.sc/18uvz8u)
