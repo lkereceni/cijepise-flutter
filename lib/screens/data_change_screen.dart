@@ -5,9 +5,9 @@ import 'package:http/http.dart' as http;
 import 'package:cijepise/services/database.dart';
 import 'package:cijepise/utilities/constants.dart';
 
-//Components
-import 'package:cijepise/components/appointment_input_container.dart';
-import 'package:cijepise/components/rounded_button.dart';
+//Widgets
+import 'package:cijepise/widgets/appointment_input_container.dart';
+import 'package:cijepise/widgets/rounded_button.dart';
 
 String userId;
 String userOib;

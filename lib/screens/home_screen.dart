@@ -6,8 +6,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:cijepise/services/networking.dart';
 import 'package:http/http.dart' as http;
 
-//Components
-import 'package:cijepise/components/covid_info_container.dart';
+//Widgets
+import 'package:cijepise/widgets/covid_info_container.dart';
 
 //Models
 import 'package:cijepise/models/covid_info.dart';

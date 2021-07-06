@@ -4,9 +4,9 @@ import 'package:http/http.dart' as http;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-//Components
-import 'package:cijepise/components/rounded_button.dart';
-import 'package:cijepise/components/input_container.dart';
+//Widgets
+import 'package:cijepise/widgets/rounded_button.dart';
+import 'package:cijepise/widgets/input_container.dart';
 
 //Screens
 import 'package:cijepise/screens/home_screen.dart';

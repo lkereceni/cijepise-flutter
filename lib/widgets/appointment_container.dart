@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cijepise/utilities/constants.dart';
-import 'package:cijepise/components/appointment_container_icon.dart';
+import 'package:cijepise/widgets/appointment_container_icon.dart';
 
 class AppointmentContainer extends StatelessWidget {
   final EdgeInsets padding;

@@ -5,10 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cijepise/utilities/constants.dart';
 import 'package:intl/intl.dart';
 
-//Components
-import 'package:cijepise/components/appointment_input_container.dart';
-import 'package:cijepise/components/appointment_info_text.dart';
-import 'package:cijepise/components/rounded_button.dart';
+//Widgets
+import 'package:cijepise/widgets/appointment_input_container.dart';
+import 'package:cijepise/widgets/appointment_info_text.dart';
+import 'package:cijepise/widgets/rounded_button.dart';
 
 //Screens
 import 'package:cijepise/screens/data_change_screen.dart';

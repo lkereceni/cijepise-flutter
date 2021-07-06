@@ -6,8 +6,8 @@ import 'package:cijepise/utilities/constants.dart';
 import 'package:cijepise/screens/login_screen.dart';
 import 'package:cijepise/screens/register_screen.dart';
 
-//Components
-import 'package:cijepise/components/rounded_button.dart';
+//Widgets
+import 'package:cijepise/widgets/rounded_button.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const id = 'welcomeScreen';

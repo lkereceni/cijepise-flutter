@@ -2,8 +2,8 @@ import 'package:cijepise/utilities/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-//Components
-import 'package:cijepise/components/appointment_container.dart';
+//Widgets
+import 'package:cijepise/widgets/appointment_container.dart';
 
 //Screens
 import 'package:cijepise/screens/first_dose_screen.dart';

@@ -1,4 +1,3 @@
-import 'package:cijepise/components/rounded_button.dart';
 import 'package:cijepise/screens/login_screen.dart';
 import 'package:cijepise/utilities/constants.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +6,9 @@ import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:device_info/device_info.dart';
 
-//Components
-import 'package:cijepise/components/input_container.dart';
+//Widgets
+import 'package:cijepise/widgets/input_container.dart';
+import 'package:cijepise/widgets/rounded_button.dart';
 
 //Services
 import 'package:cijepise/services/database.dart';
