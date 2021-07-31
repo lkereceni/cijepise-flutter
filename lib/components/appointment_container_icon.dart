@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cijepise/utilities/constants.dart';
+import 'package:cijepise/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AppointmentContainerIcon extends StatelessWidget {
@@ -7,12 +7,16 @@ class AppointmentContainerIcon extends StatelessWidget {
   final String label;
   final Color iconColor;
 
-  AppointmentContainerIcon({@required this.iconAsset, @required this.label, this.iconColor});
+  AppointmentContainerIcon({
+    @required this.iconAsset,
+    @required this.label,
+    this.iconColor,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(24.0),
+      padding: EdgeInsets.all(kDefaultPadding),
       child: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -22,16 +26,16 @@ class AppointmentContainerIcon extends StatelessWidget {
               height: 100.0,
               width: 100.0,
             ),
-            SizedBox(height: 25.0),
+            SizedBox(height: kDefaultPadding),
             Text(
               label,
               textAlign: TextAlign.center,
               style: TextStyle(
+                color: kInputTextColor,
                 fontFamily: 'UniSans',
                 fontSize: 14.0,
                 fontWeight: FontWeight.w600,
                 letterSpacing: 1,
-                color: Color(kInputTextColor),
               ),
             ),
           ],

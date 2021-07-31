@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:cijepise/utilities/constants.dart';
+import 'package:cijepise/constants.dart';
 
 //Screens
 import 'package:cijepise/screens/login_screen.dart';
 import 'package:cijepise/screens/register_screen.dart';
 
-//Widgets
-import 'package:cijepise/widgets/rounded_button.dart';
+import 'package:cijepise/components/rounded_button.dart';
 
 class WelcomeScreen extends StatefulWidget {
   static const id = 'welcomeScreen';
@@ -19,68 +18,54 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: Color(kLightBlueColor),
-      body: SafeArea(
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.only(top: 20.0, left: 10.0, right: 10.0),
-            child: Stack(
-              fit: StackFit.loose,
-              alignment: Alignment.topCenter,
-              children: [
-                Positioned(
-                  top: 100.0,
-                  child: SvgPicture.asset(
-                    'assets/images/welcome_screen_background.svg',
-                    fit: BoxFit.fitWidth,
-                    width: 300.0,
-                    height: 300.0,
-                  ),
-                ),
-                Positioned(
-                  bottom: 180.0,
-                  child: RoundedButton(
-                    text: 'Prijavi se',
-                    onClick: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Positioned(
-                  bottom: 120.0,
-                  child: TextButton(
-                    child: Text(
-                      'Registriraj se',
-                      style: TextStyle(
-                        color: Color(kDarkBlueColor),
-                        fontSize: 20.0,
-                        fontFamily: 'UniSans',
-                        fontWeight: FontWeight.w500,
-                        letterSpacing: 1.5,
-                      ),
-                    ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RegisterScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ],
+      backgroundColor: kLightBlueColor,
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(
+              top: kDefaultPadding,
+              left: kDefaultPadding,
+              right: kDefaultPadding,
+            ),
+            child: SvgPicture.asset(
+              'assets/images/welcome_screen_background.svg',
+              height: 500,
+              width: size.width,
             ),
           ),
-        ),
+          RoundedButton(
+            text: 'Prijavi se',
+            onClick: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => LoginScreen(),
+                ),
+              );
+            },
+          ),
+          TextButton(
+            child: Text(
+              'Registriraj se',
+              style: TextStyle(
+                color: kDarkBlueColor,
+                fontFamily: 'UniSans',
+                fontSize: 20,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 1,
+              ),
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RegisterScreen()),
+              );
+            },
+          ),
+        ],
       ),
     );
   }

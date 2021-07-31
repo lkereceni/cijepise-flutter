@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:cijepise/utilities/constants.dart';
+import 'package:cijepise/constants.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 //Networking
 import 'package:cijepise/services/networking.dart';
 import 'package:http/http.dart' as http;
 
-//Widgets
-import 'package:cijepise/widgets/covid_info_container.dart';
+//Components
+import 'package:cijepise/components/covid_info_container.dart';
 
 //Models
 import 'package:cijepise/models/covid_info.dart';
@@ -23,91 +23,75 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
-        backgroundColor: Color(kLightBlueColor),
-        body: SafeArea(
-            child: FutureBuilder<List<CovidInfo>>(
+      backgroundColor: kLightBlueColor,
+      body: SafeArea(
+        child: FutureBuilder<List<CovidInfo>>(
           future: fetchCovidInfo(http.Client()),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              int newCases = snapshot.data.last.confirmed -
-                  snapshot.data[snapshot.data.length - 2].confirmed;
-              int deaths = snapshot.data.last.deaths -
-                  snapshot.data[snapshot.data.length - 2].deaths;
+              int newCases = snapshot.data.last.confirmed - snapshot.data[snapshot.data.length - 2].confirmed;
+              int deaths = snapshot.data.last.deaths - snapshot.data[snapshot.data.length - 2].deaths;
 
-              return Padding(
-                padding: EdgeInsets.all(24.0),
-                child: Stack(
-                  children: [
-                    Positioned(
-                      top: 40.0,
-                      left: 0.0,
-                      child: Text(
-                        'KORONAVIRUS',
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          fontFamily: 'UniSans',
-                          fontWeight: FontWeight.bold,
+              return Center(
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: EdgeInsets.all(kDefaultPadding),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'KORONAVIRUS',
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontFamily: 'UniSans',
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 60.0,
-                      left: 0.0,
-                      child: CovidInfoContainer(
-                        text: newCases.toString(),
-                        label: 'novi slučajevi',
-                        iconAsset: 'assets/icons/coronavirus.svg',
-                      ),
-                    ),
-                    Positioned(
-                      top: 60.0,
-                      right: 0.0,
-                      child: CovidInfoContainer(
-                        text: deaths.toString(),
-                        label: 'umrli',
-                        iconAsset: 'assets/icons/death.svg',
-                      ),
-                    ),
-                    Positioned(
-                      top: 180.0,
-                      right: 0.0,
-                      left: 0.0,
-                      child: Container(
-                        width: size.width,
-                        height: 250.0,
-                        decoration: BoxDecoration(
-                          color: Color(kDarkBlueColor),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        SizedBox(height: 5),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            CovidInfoContainer(
+                              text: newCases.toString(),
+                              label: 'novi slučajevi',
+                              iconAsset: 'assets/icons/coronavirus.svg',
+                            ),
+                            CovidInfoContainer(
+                              text: deaths.toString(),
+                              label: 'umrli',
+                              iconAsset: 'assets/icons/death.svg',
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 30.0),
+                        Container(
+                          width: size.width,
+                          height: 280.0,
+                          decoration: BoxDecoration(
+                            color: kDarkBlueColor,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.only(left: kDefaultPadding * 1.8, right: kDefaultPadding * 1.8),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Padding(
-                                  padding:
-                                      EdgeInsets.only(left: 24.0, bottom: 30.0),
-                                  child: SvgPicture.asset(
-                                    'assets/icons/coronavirus.svg',
-                                    color: Color(kGreenColor),
-                                    width: 100.0,
-                                    height: 100.0,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsets.only(
-                                            left: 60.0, top: 10.0),
-                                        child: Text(
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/icons/coronavirus.svg',
+                                      width: 100.0,
+                                      height: 100.0,
+                                      color: kGreenColor,
+                                    ),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        Text(
                                           'COVID-19',
                                           style: TextStyle(
                                             color: Colors.white,
@@ -117,228 +101,219 @@ class _HomeScreenState extends State<HomeScreen> {
                                             letterSpacing: 2,
                                           ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 60.0),
-                                        child: Text(
+                                        Text(
                                           'cijepljenje',
                                           style: TextStyle(
-                                            color: Color(kGreenColor),
-                                            fontSize: 26.0,
+                                            color: kGreenColor,
                                             fontFamily: 'UniSans',
+                                            fontSize: 26.0,
                                             letterSpacing: 1.8,
                                           ),
                                         ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 20.0),
+                                SizedBox(
+                                  width: 220.0,
+                                  height: 60.0,
+                                  child: TextButton(
+                                    child: Text(
+                                      'Naruči se',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontFamily: 'UniSans',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20.0,
+                                        letterSpacing: 1.5,
                                       ),
-                                    ],
+                                    ),
+                                    style: TextButton.styleFrom(
+                                        backgroundColor: Colors.transparent,
+                                        elevation: 0,
+                                        shape: RoundedRectangleBorder(
+                                          side: BorderSide(
+                                            color: Colors.white,
+                                            width: 1,
+                                            style: BorderStyle.solid,
+                                          ),
+                                          borderRadius: BorderRadius.circular(50.0),
+                                        )),
+                                    onPressed: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => AppointmentScreen(),
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
                               ],
                             ),
+                          ),
+                        ),
+                        SizedBox(height: 30.0),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'O COVID-19',
+                              style: TextStyle(
+                                fontFamily: 'UniSans',
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 5.0),
                             SizedBox(
-                              width: 220.0,
-                              height: 60,
+                              width: size.width,
+                              height: 60.0,
                               child: ElevatedButton(
-                                child: Text(
-                                  'Naruči se',
-                                  style: TextStyle(
-                                    fontSize: 20.0,
-                                    fontFamily: 'UniSans',
-                                    letterSpacing: 1.5,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                                style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      Colors.transparent),
-                                  alignment: Alignment.center,
-                                  elevation: MaterialStateProperty.all(0.0),
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      side: BorderSide(
-                                        color: Colors.white,
-                                        width: 1,
-                                        style: BorderStyle.solid,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/icons/info.svg',
+                                      width: 55.0,
+                                      height: 55.0,
+                                    ),
+                                    Expanded(
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Osnovne informacije',
+                                          style: TextStyle(
+                                            color: kInputTextColor,
+                                            fontFamily: 'UniSans',
+                                            fontSize: 22.0,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 1.5,
+                                          ),
+                                        ),
                                       ),
-                                      borderRadius: BorderRadius.circular(50.0),
+                                    ),
+                                  ],
+                                ),
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10.0,
                                     ),
                                   ),
                                 ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            AppointmentScreen()),
-                                  );
-                                },
+                                onPressed: () {},
+                              ),
+                            ),
+                            SizedBox(height: 20.0),
+                            SizedBox(
+                              width: size.width,
+                              height: 60.0,
+                              child: ElevatedButton(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/icons/microscope.svg',
+                                      width: 45.0,
+                                      height: 45.0,
+                                    ),
+                                    Expanded(
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Testiranje',
+                                          style: TextStyle(
+                                            color: kInputTextColor,
+                                            fontFamily: 'UniSans',
+                                            fontSize: 22.0,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 1.5,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10.0,
+                                    ),
+                                  ),
+                                ),
+                                onPressed: () {},
+                              ),
+                            ),
+                            SizedBox(height: 20.0),
+                            SizedBox(
+                              width: size.width,
+                              height: 60.0,
+                              child: ElevatedButton(
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    SvgPicture.asset(
+                                      'assets/icons/mask.svg',
+                                      color: kDarkBlueColor,
+                                      width: 60.0,
+                                      height: 60.0,
+                                    ),
+                                    Expanded(
+                                      child: Align(
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          'Kako se zaštititi?',
+                                          style: TextStyle(
+                                            color: kInputTextColor,
+                                            fontFamily: 'UniSans',
+                                            fontSize: 22.0,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 1.5,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                style: TextButton.styleFrom(
+                                  backgroundColor: Colors.white,
+                                  elevation: 0,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      10.0,
+                                    ),
+                                  ),
+                                ),
+                                onPressed: () {},
                               ),
                             ),
                           ],
                         ),
-                      ),
+                      ],
                     ),
-                    Positioned(
-                      top: 460.0,
-                      left: 0.0,
-                      child: Text(
-                        'O COVID-19',
-                        style: TextStyle(
-                          fontFamily: 'UniSans',
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    Positioned(
-                      top: 480.0,
-                      left: 0.0,
-                      right: 0.0,
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            width: size.width,
-                            height: 70,
-                            child: ElevatedButton(
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.all(6.0),
-                                    child: SvgPicture.asset(
-                                      'assets/icons/info.svg',
-                                      height: 60.0,
-                                      width: 60.0,
-                                    ),
-                                  ),
-                                  SizedBox(width: 24.0),
-                                  Text(
-                                    'Osnovne informacije',
-                                    style: TextStyle(
-                                      fontSize: 22.0,
-                                      fontFamily: 'UniSans',
-                                      letterSpacing: 1.5,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(kInputTextColor),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              style: ButtonStyle(
-                                alignment: Alignment.center,
-                                elevation: MaterialStateProperty.all(0.0),
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.white),
-                              ),
-                              onPressed: () {},
-                            ),
-                          ),
-                          SizedBox(height: 15.0),
-                          SizedBox(
-                            width: size.width,
-                            height: 70,
-                            child: ElevatedButton(
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        left: 16.0, right: 16.0),
-                                    child: SvgPicture.asset(
-                                      'assets/icons/microscope.svg',
-                                      height: 40.0,
-                                      width: 40.0,
-                                    ),
-                                  ),
-                                  SizedBox(width: 24.0),
-                                  Text(
-                                    'Testiranje',
-                                    style: TextStyle(
-                                      fontSize: 22.0,
-                                      fontFamily: 'UniSans',
-                                      letterSpacing: 1.5,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(kInputTextColor),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              style: ButtonStyle(
-                                alignment: Alignment.center,
-                                elevation: MaterialStateProperty.all(0.0),
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.white),
-                              ),
-                              onPressed: () {},
-                            ),
-                          ),
-                          SizedBox(height: 15.0),
-                          SizedBox(
-                            width: size.width,
-                            height: 70,
-                            child: ElevatedButton(
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsets.all(6.0),
-                                    child: SvgPicture.asset(
-                                      'assets/icons/mask.svg',
-                                      color: Color(kDarkBlueColor),
-                                    ),
-                                  ),
-                                  SizedBox(width: 24.0),
-                                  Text(
-                                    'Kako se zaštititi?',
-                                    style: TextStyle(
-                                      fontSize: 22.0,
-                                      fontFamily: 'UniSans',
-                                      letterSpacing: 1.5,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color(kInputTextColor),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              style: ButtonStyle(
-                                alignment: Alignment.center,
-                                elevation: MaterialStateProperty.all(0.0),
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                ),
-                                backgroundColor:
-                                    MaterialStateProperty.all(Colors.white),
-                              ),
-                              onPressed: () {},
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               );
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');
             }
             return Center(
-              child: CircularProgressIndicator(backgroundColor: Colors.white),
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.white,
+              ),
             );
           },
-        )));
+        ),
+      ),
+    );
   }
 }

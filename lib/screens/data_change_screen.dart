@@ -3,11 +3,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'package:cijepise/services/database.dart';
-import 'package:cijepise/utilities/constants.dart';
+import 'package:cijepise/constants.dart';
 
 //Widgets
-import 'package:cijepise/widgets/appointment_input_container.dart';
-import 'package:cijepise/widgets/rounded_button.dart';
+import 'package:cijepise/components/appointment_input_container.dart';
+import 'package:cijepise/components/rounded_button.dart';
 
 String userId;
 String userOib;
@@ -103,73 +103,73 @@ class _DataChangeScreenState extends State<DataChangeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: kDarkBlueColor,
+            size: 28.0,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
       body: SafeArea(
         child: FutureBuilder(
           future: Database.getUserVaccinationInfo(http.Client(), userOib),
           builder: (context, snapshot) {
             return Padding(
-              padding: EdgeInsets.all(16.0),
-              child: Stack(
-                fit: StackFit.loose,
-                alignment: Alignment.center,
-                children: [
-                  Positioned(
-                    top: 2.0,
-                    left: -10.0,
-                    child: IconButton(
-                      icon: Icon(
-                        Icons.arrow_back,
-                        color: Color(kDarkBlueColor),
-                        size: 36.0,
-                      ),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
+              padding: EdgeInsets.only(
+                top: kDefaultPadding,
+                left: kDefaultPadding,
+                right: kDefaultPadding,
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AppointmentInputContainer(
+                          label: 'Ime',
+                          width: size.width * 0.4,
+                          controller: imeController,
+                        ),
+                        AppointmentInputContainer(
+                          label: 'Prezime',
+                          width: size.width * 0.4,
+                          controller: prezimeController,
+                        ),
+                      ],
                     ),
-                  ),
-                  Positioned(
-                    top: 140.0,
-                    child: Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: Row(
-                        children: [
-                          AppointmentInputContainer(
-                            label: 'Ime',
-                            width: 170.0,
-                            controller: imeController,
-                          ),
-                          SizedBox(width: 20.0),
-                          AppointmentInputContainer(
-                            label: 'Prezime',
-                            width: 170.0,
-                            controller: prezimeController,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 240.0,
-                    child: AppointmentInputContainer(
+                    SizedBox(height: kDefaultPadding),
+                    AppointmentInputContainer(
                       label: 'Ulica i kućni broj',
-                      width: 360.0,
+                      width: size.width,
                       controller: adresaController,
                     ),
-                  ),
-                  Positioned(
-                    top: 330.0,
-                    child: Column(
+                    SizedBox(height: kDefaultPadding),
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(left: 24.0),
+                          padding: EdgeInsets.only(left: kDefaultPadding),
                           child: Text(
                             'Županija',
-                            style: TextStyle(color: Color(kHintTextColor), fontSize: 14.0),
+                            style: TextStyle(
+                              color: kHintTextColor,
+                              fontSize: 14.0,
+                            ),
                           ),
                         ),
+                        SizedBox(height: 2.0),
                         FutureBuilder(
                           future: Database.getZupanije(http.Client()),
                           builder: (context, snapshot) {
@@ -177,19 +177,18 @@ class _DataChangeScreenState extends State<DataChangeScreen> {
                             return Container(
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: Color(kLightBlueColor),
+                                color: kLightBlueColor,
                                 borderRadius: BorderRadius.circular(50.0),
                               ),
-                              width: 360.0,
+                              width: size.width,
                               height: 50.0,
                               child: Padding(
-                                padding: EdgeInsets.only(left: 16.0, right: 8.0),
+                                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
                                 child: DropdownButton(
+                                  isExpanded: true,
                                   hint: Text(
                                     'Županija',
-                                    style: TextStyle(
-                                      color: Color(kHintTextColor),
-                                    ),
+                                    style: TextStyle(color: kHintTextColor),
                                   ),
                                   icon: Icon(
                                     Icons.expand_more,
@@ -197,7 +196,7 @@ class _DataChangeScreenState extends State<DataChangeScreen> {
                                   ),
                                   underline: SizedBox(),
                                   style: TextStyle(
-                                    color: Color(kInputTextColor),
+                                    color: kInputTextColor,
                                     fontFamily: 'UniSans',
                                     fontSize: 16.0,
                                   ),
@@ -213,7 +212,6 @@ class _DataChangeScreenState extends State<DataChangeScreen> {
                                         selectedGradItem = null;
                                       }
                                       selectedZupanijaItem = newVal;
-                                      //zupanijaQuery = newVal;
                                     });
                                   },
                                   value: selectedZupanijaItem,
@@ -221,22 +219,21 @@ class _DataChangeScreenState extends State<DataChangeScreen> {
                               ),
                             );
                           },
-                        ),
+                        )
                       ],
                     ),
-                  ),
-                  Positioned(
-                    top: 420.0,
-                    child: Column(
+                    SizedBox(height: kDefaultPadding),
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
                           padding: EdgeInsets.only(left: 24.0),
                           child: Text(
                             'Grad',
-                            style: TextStyle(color: Color(kHintTextColor), fontSize: 14.0),
+                            style: TextStyle(color: kHintTextColor, fontSize: 14.0),
                           ),
                         ),
+                        SizedBox(height: 2.0),
                         FutureBuilder(
                           future: Database.gradoviJson(selectedZupanijaItem),
                           builder: (context, snapshot) {
@@ -244,29 +241,28 @@ class _DataChangeScreenState extends State<DataChangeScreen> {
                             return Container(
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
-                                color: Color(kLightBlueColor),
+                                color: kLightBlueColor,
                                 borderRadius: BorderRadius.circular(50.0),
                               ),
-                              width: 360.0,
+                              width: size.width,
                               height: 50.0,
                               child: Padding(
-                                padding: EdgeInsets.only(left: 24.0, right: 0.0),
+                                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
                                 child: DropdownButton(
+                                  isExpanded: true,
                                   hint: Text(
                                     'Grad',
                                     style: TextStyle(
-                                      color: Color(kHintTextColor),
+                                      color: kHintTextColor,
                                     ),
                                   ),
-                                  icon: Expanded(
-                                    child: Icon(
-                                      Icons.expand_more,
-                                      size: 24.0,
-                                    ),
+                                  icon: Icon(
+                                    Icons.expand_more,
+                                    size: 24.0,
                                   ),
                                   underline: SizedBox(),
                                   style: TextStyle(
-                                    color: Color(kInputTextColor),
+                                    color: kInputTextColor,
                                     fontFamily: 'UniSans',
                                     fontSize: 16.0,
                                   ),
@@ -289,33 +285,31 @@ class _DataChangeScreenState extends State<DataChangeScreen> {
                         ),
                       ],
                     ),
-                  ),
-                  Positioned(
-                    top: 510.0,
-                    child: Row(
+                    SizedBox(height: kDefaultPadding),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         AppointmentInputContainer(
                           label: 'OIB',
-                          width: 170.0,
+                          width: size.width * 0.4,
                           controller: oibController,
                         ),
-                        SizedBox(width: 20.0),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: EdgeInsets.only(left: 24.0),
+                              padding: EdgeInsets.only(left: kDefaultPadding),
                               child: Text(
                                 'Datum rođenja',
                                 style: TextStyle(
-                                  color: Color(kHintTextColor),
+                                  color: kHintTextColor,
                                   fontSize: 14.0,
                                 ),
                               ),
                             ),
                             SizedBox(height: 2.0),
                             SizedBox(
-                              width: 170.0,
+                              width: size.width * 0.4,
                               height: 50.0,
                               child: InkWell(
                                 onTap: () {
@@ -323,15 +317,15 @@ class _DataChangeScreenState extends State<DataChangeScreen> {
                                 },
                                 child: Container(
                                   alignment: Alignment.centerLeft,
-                                  padding: EdgeInsets.only(left: 14.0),
+                                  padding: EdgeInsets.only(left: kDefaultPadding),
                                   decoration: BoxDecoration(
-                                    color: Color(kLightBlueColor),
+                                    color: kLightBlueColor,
                                     borderRadius: BorderRadius.circular(50.0),
                                   ),
                                   child: Text(
                                     sDatumRodenja,
                                     style: TextStyle(
-                                      color: Color(kInputTextColor),
+                                      color: kInputTextColor,
                                       fontFamily: 'UniSans',
                                       fontSize: 16.0,
                                     ),
@@ -344,14 +338,10 @@ class _DataChangeScreenState extends State<DataChangeScreen> {
                         ),
                       ],
                     ),
-                  ),
-                  Positioned(
-                    top: 650.0,
-                    child: RoundedButton(
+                    SizedBox(height: kDefaultPadding * 2),
+                    RoundedButton(
                       text: 'Promijeni podatke',
                       onClick: () {
-                        print('selectedDate: ${selectedDate.year}');
-                        print(DateTime.now().year);
                         selectedDate.year == DateTime.now().year
                             ? sDatumRodenja = userDatumRodenja
                             : sDatumRodenja = databaseFormatter.format(selectedDate);
@@ -365,11 +355,12 @@ class _DataChangeScreenState extends State<DataChangeScreen> {
                           int.parse(oibController.text),
                           int.parse(sDatumRodenja),
                         );
+                        Database.addUserVaccination(oibController.text);
                         Navigator.pop(context);
                       },
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           },
