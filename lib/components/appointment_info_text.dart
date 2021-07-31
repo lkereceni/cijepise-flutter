@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cijepise/utilities/constants.dart';
+import 'package:cijepise/constants.dart';
 
 class AppointmentInfoText extends StatelessWidget {
   final String label;
@@ -16,7 +16,7 @@ class AppointmentInfoText extends StatelessWidget {
         Text(
           label,
           style: TextStyle(
-            color: Color(kDarkGreyFontColor),
+            color: kDarkGreyTextColor,
             fontSize: 18.0,
           ),
         ),

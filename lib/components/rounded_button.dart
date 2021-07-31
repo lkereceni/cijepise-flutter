@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:cijepise/utilities/constants.dart';
+import 'package:cijepise/constants.dart';
+
+double width;
 
 class RoundedButton extends StatelessWidget {
   final String text;
@@ -9,8 +11,9 @@ class RoundedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    width = MediaQuery.of(context).size.width;
     return SizedBox(
-      width: 240.0,
+      width: width * .64,
       height: 70,
       child: ElevatedButton(
         child: Text(
@@ -22,7 +25,7 @@ class RoundedButton extends StatelessWidget {
           ),
         ),
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all(Color(kDarkBlueColor)),
+          backgroundColor: MaterialStateProperty.all(kDarkBlueColor),
           alignment: Alignment.center,
           elevation: MaterialStateProperty.all(0.0),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(

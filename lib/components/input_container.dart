@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cijepise/utilities/constants.dart';
+import 'package:cijepise/constants.dart';
 import 'package:flutter/services.dart';
 
 class InputContainer extends StatelessWidget {
@@ -8,8 +8,12 @@ class InputContainer extends StatelessWidget {
   final bool obscureText;
   final TextEditingController controller;
 
-  InputContainer(
-      {@required this.hintText, @required this.width, @required this.obscureText, @required this.controller});
+  InputContainer({
+    @required this.hintText,
+    @required this.width,
+    @required this.obscureText,
+    @required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,14 +31,14 @@ class InputContainer extends StatelessWidget {
         obscureText: obscureText,
         controller: controller,
         style: TextStyle(
-          color: Color(kInputTextColor),
+          color: kInputTextColor,
         ),
         decoration: InputDecoration(
           border: InputBorder.none,
-          contentPadding: EdgeInsets.only(left: 14.0),
+          contentPadding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
           hintText: hintText,
           hintStyle: TextStyle(
-            color: Color(kHintTextColor),
+            color: kHintTextColor,
             fontFamily: 'UniSans',
           ),
         ),

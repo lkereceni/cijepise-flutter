@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:cijepise/utilities/constants.dart';
+import 'package:cijepise/constants.dart';
 
 class AppointmentInputContainer extends StatelessWidget {
   final String label;
@@ -18,7 +18,7 @@ class AppointmentInputContainer extends StatelessWidget {
           child: Text(
             label,
             style: TextStyle(
-              color: Color(kHintTextColor),
+              color: kHintTextColor,
               fontSize: 14.0,
             ),
           ),
@@ -26,7 +26,7 @@ class AppointmentInputContainer extends StatelessWidget {
         SizedBox(height: 2.0),
         Container(
           decoration: BoxDecoration(
-            color: Color(kLightBlueColor),
+            color: kLightBlueColor,
             borderRadius: BorderRadius.circular(50.0),
           ),
           width: width,
@@ -38,7 +38,7 @@ class AppointmentInputContainer extends StatelessWidget {
               textCapitalization: TextCapitalization.sentences,
               controller: controller,
               style: TextStyle(
-                color: Color(kInputTextColor),
+                color: kInputTextColor,
               ),
               decoration: InputDecoration(
                 border: InputBorder.none,

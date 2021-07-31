@@ -1,9 +1,8 @@
-import 'package:cijepise/utilities/constants.dart';
+import 'package:cijepise/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 //Widgets
-import 'package:cijepise/widgets/appointment_container.dart';
+import 'package:cijepise/components/appointment_container.dart';
 
 //Screens
 import 'package:cijepise/screens/first_dose_screen.dart';
@@ -19,138 +18,83 @@ class AppointmentScreen extends StatefulWidget {
 class _AppointmentScreenState extends State<AppointmentScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        body: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Stack(
-              fit: StackFit.loose,
-              children: [
-                Positioned(
-                  top: 2.0,
-                  left: -10.0,
-                  child: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back,
-                      color: Color(kDarkBlueColor),
-                      size: 36.0,
-                    ),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
+    Size size = MediaQuery.of(context).size;
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+            color: kDarkBlueColor,
+            size: 28.0,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.only(left: kDefaultPadding, right: kDefaultPadding, top: kDefaultPadding),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Narudžba',
+                style: TextStyle(
+                  color: kDarkGreyTextColor,
+                  fontFamily: 'UniSans',
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.5,
                 ),
-                Positioned(
-                  top: 60.0,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 8.0, top: 8.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Narudžba',
-                          style: TextStyle(
-                            fontFamily: 'UniSans',
-                            fontSize: 30.0,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.5,
-                          ),
-                        ),
-                        Text(
-                          'Izaberite vrstu narudžbe',
-                          style: TextStyle(
-                            fontFamily: 'UniSans',
-                            fontSize: 20.0,
-                            letterSpacing: 1.5,
-                            color: Color(kInputTextColor),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+              ),
+              Text(
+                'Izaberite vrstu narudžbe',
+                style: TextStyle(
+                  color: kInputTextColor,
+                  fontFamily: 'UniSans',
+                  fontSize: 20.0,
                 ),
-                Positioned(
-                  top: 200.0,
-                  left: 0.0,
-                  child: AppointmentContainer(
-                    padding: EdgeInsets.only(left: 8.0),
-                    iconAsset: 'assets/icons/syringe_1.svg',
-                    label: 'COVID-19 cjepivo\n(prva doza)',
-                    onTapScreen: FirstDoseScreen(),
-                  ),
-                ),
-                Positioned(
-                  top: 200.0,
-                  right: 0.0,
-                  child: AppointmentContainer(
-                    padding: EdgeInsets.only(right: 8.0),
-                    iconAsset: 'assets/icons/syringe_2.svg',
-                    label: 'COVID-19 cjepivo\n(druga doza)',
-                    onTapScreen: SecondDoseScreen(),
-                  ),
-                ),
-                Positioned(
-                  top: 440.0,
-                  left: 0.0,
-                  child: AppointmentContainer(
-                    padding: EdgeInsets.only(left: 8.0),
-                    iconAsset: 'assets/icons/microscope.svg',
-                    label: 'RT-PCR test',
-                    onTapScreen: PcrTestScreen(),
-                  ),
-                ),
-                Positioned(
-                  top: 440.0,
-                  right: 0.0,
-                  child: GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => AntigenicTestScreen()));
-                    },
-                    child: Padding(
-                      padding: EdgeInsets.only(right: 8.0),
-                      child: Container(
-                        height: 220.0,
-                        width: 180.0,
-                        decoration: BoxDecoration(
-                          color: Color(kLightBlueColor),
-                          borderRadius: BorderRadius.circular(20.0),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(24.0),
-                          child: Center(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                SvgPicture.asset(
-                                  'assets/icons/coronavirus.svg',
-                                  height: 100.0,
-                                  width: 100.0,
-                                  color: Color(kDarkBlueColor),
-                                ),
-                                SizedBox(height: 30.0),
-                                Text(
-                                  'Brzi antigenski\ntest',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontFamily: 'UniSans',
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 1,
-                                    color: Color(kInputTextColor),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+              ),
+              //SizedBox(height: kDefaultPadding),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: kDefaultPadding * 1.5),
+                  child: Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: 10.0,
+                    runSpacing: 15.0,
+                    children: <Widget>[
+                      AppointmentContainer(
+                        iconAsset: 'assets/icons/syringe_1.svg',
+                        label: 'COVID-19 cjepivo\n(prva doza)',
+                        onTapScreen: FirstDoseScreen(),
                       ),
-                    ),
+                      AppointmentContainer(
+                        iconAsset: 'assets/icons/syringe_2.svg',
+                        label: 'COVID-19 cjepivo\n(druga doza)',
+                        onTapScreen: SecondDoseScreen(),
+                      ),
+                      AppointmentContainer(
+                        iconAsset: 'assets/icons/microscope.svg',
+                        label: 'RT-PCR test',
+                        onTapScreen: PcrTestScreen(),
+                      ),
+                      AppointmentContainer(
+                        iconAsset: 'assets/icons/coronavirus.svg',
+                        label: 'Brzi antigenski test',
+                        onTapScreen: AntigenicTestScreen(),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
