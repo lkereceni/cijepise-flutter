@@ -1,5 +1,6 @@
 import 'package:cijepise/screens/login_screen.dart';
 import 'package:cijepise/constants.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
@@ -12,6 +13,7 @@ import 'package:cijepise/components/rounded_button.dart';
 
 //Services
 import 'package:cijepise/services/database.dart';
+import 'package:searchable_dropdown/searchable_dropdown.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 String token;
@@ -174,7 +176,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
                   return Container(
-                    alignment: Alignment.center,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(50.0),
@@ -182,8 +183,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     width: size.width,
                     height: 50.0,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                      child: DropdownButton(
+                      padding: EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
+                      child: SearchableDropdown(
+                        items: snapshot.data.map<DropdownMenuItem<String>>((item) {
+                          return DropdownMenuItem<String>(
+                            child: Text(item['mjesto']),
+                            value: item['mjesto'],
+                          );
+                        }).toList(),
+                        value: selectedItemGrad,
+                        isCaseSensitiveSearch: false,
+                        isExpanded: true,
+                        hint: Text(
+                          'Grad',
+                          style: TextStyle(color: kHintTextColor),
+                        ),
+                        searchHint: Text('Izaberite grad'),
+                        closeButton: 'Zatvori',
+                        icon: Icon(
+                          Icons.expand_more,
+                          size: 24.0,
+                        ),
+                        style: TextStyle(
+                          color: kInputTextColor,
+                          fontFamily: 'UniSans',
+                          fontSize: 16.0,
+                        ),
+                        underline: SizedBox(),
+                        onChanged: (newVal) {
+                          setState(() {
+                            selectedItemGrad = newVal;
+                          });
+                        },
+                      ),
+                      /*DropdownButton(
                         isExpanded: true,
                         hint: Text(
                           'Grad',
@@ -211,7 +244,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           });
                         },
                         value: selectedItemGrad,
-                      ),
+                      ),*/
                     ),
                   );
                 },

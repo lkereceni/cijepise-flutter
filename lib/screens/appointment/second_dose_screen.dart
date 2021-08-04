@@ -1,3 +1,4 @@
+import 'package:cijepise/components/screen_title.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cijepise/services/database.dart';
@@ -5,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cijepise/constants.dart';
 import 'package:intl/intl.dart';
 
-import 'package:cijepise/components/appointment_input_container.dart';
 import 'package:cijepise/components/appointment_info_text.dart';
 import 'package:cijepise/components/rounded_button.dart';
 
@@ -217,13 +217,8 @@ class _SecondDoseScreenState extends State<SecondDoseScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        'COVID-19 cjepivo (druga doza)',
-                        style: TextStyle(
-                          color: kInputTextColor,
-                          fontFamily: 'UniSans',
-                          fontSize: 24.0,
-                        ),
+                      ScreenTitle(
+                        title: 'COVID-19 cjepivo (druga doza)',
                       ),
                       SizedBox(height: kDefaultPadding),
                       Container(

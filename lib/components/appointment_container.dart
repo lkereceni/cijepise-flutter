@@ -6,11 +6,13 @@ class AppointmentContainer extends StatelessWidget {
   final String iconAsset;
   final String label;
   final Object onTapScreen;
+  final Color iconColor;
 
   AppointmentContainer({
     @required this.iconAsset,
     @required this.label,
     this.onTapScreen,
+    this.iconColor,
   });
 
   @override
@@ -30,6 +32,7 @@ class AppointmentContainer extends StatelessWidget {
         child: AppointmentContainerIcon(
           iconAsset: iconAsset,
           label: label,
+          iconColor: iconColor,
         ),
       ),
     );

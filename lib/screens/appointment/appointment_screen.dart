@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:cijepise/components/appointment_container.dart';
 
 //Screens
-import 'package:cijepise/screens/first_dose_screen.dart';
-import 'package:cijepise/screens/second_dose_screen.dart';
-import 'package:cijepise/screens/pcr_test_screen.dart';
-import 'package:cijepise/screens/antigenic_test_screen.dart';
+import 'package:cijepise/screens/appointment/first_dose_screen.dart';
+import 'package:cijepise/screens/appointment/second_dose_screen.dart';
+import 'package:cijepise/screens/appointment/antigenic_test_screen.dart';
+
+import 'pcr_test_screen.dart';
 
 class AppointmentScreen extends StatefulWidget {
   @override
@@ -64,33 +65,36 @@ class _AppointmentScreenState extends State<AppointmentScreen> {
               //SizedBox(height: kDefaultPadding),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsets.symmetric(vertical: kDefaultPadding * 1.5),
-                  child: Wrap(
-                    alignment: WrapAlignment.center,
-                    spacing: 10.0,
-                    runSpacing: 15.0,
-                    children: <Widget>[
-                      AppointmentContainer(
-                        iconAsset: 'assets/icons/syringe_1.svg',
-                        label: 'COVID-19 cjepivo\n(prva doza)',
-                        onTapScreen: FirstDoseScreen(),
-                      ),
-                      AppointmentContainer(
-                        iconAsset: 'assets/icons/syringe_2.svg',
-                        label: 'COVID-19 cjepivo\n(druga doza)',
-                        onTapScreen: SecondDoseScreen(),
-                      ),
-                      AppointmentContainer(
-                        iconAsset: 'assets/icons/microscope.svg',
-                        label: 'RT-PCR test',
-                        onTapScreen: PcrTestScreen(),
-                      ),
-                      AppointmentContainer(
-                        iconAsset: 'assets/icons/coronavirus.svg',
-                        label: 'Brzi antigenski test',
-                        onTapScreen: AntigenicTestScreen(),
-                      ),
-                    ],
+                  padding: EdgeInsets.symmetric(vertical: 0),
+                  child: Center(
+                    child: Wrap(
+                      alignment: WrapAlignment.center,
+                      spacing: 10.0,
+                      runSpacing: 15.0,
+                      children: <Widget>[
+                        AppointmentContainer(
+                          iconAsset: 'assets/icons/syringe_1.svg',
+                          label: 'COVID-19 cjepivo\n(prva doza)',
+                          onTapScreen: FirstDoseScreen(),
+                        ),
+                        AppointmentContainer(
+                          iconAsset: 'assets/icons/syringe_2.svg',
+                          label: 'COVID-19 cjepivo\n(druga doza)',
+                          onTapScreen: SecondDoseScreen(),
+                        ),
+                        AppointmentContainer(
+                          iconAsset: 'assets/icons/microscope.svg',
+                          label: 'RT-PCR test',
+                          onTapScreen: PcrTestScreen(),
+                        ),
+                        AppointmentContainer(
+                          iconAsset: 'assets/icons/coronavirus.svg',
+                          iconColor: kDarkBlueColor,
+                          label: 'Brzi antigenski test',
+                          onTapScreen: AntigenicTestScreen(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
