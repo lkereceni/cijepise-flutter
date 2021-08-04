@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:cijepise/components/input_container.dart';
+import 'package:cijepise/components/screen_title.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:cijepise/services/database.dart';
@@ -221,13 +221,8 @@ class _FirstDoseScreenState extends State<FirstDoseScreen> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Text(
-                        'COVID-19 cjepivo (prva doza)',
-                        style: TextStyle(
-                          color: kInputTextColor,
-                          fontFamily: 'UniSans',
-                          fontSize: 24.0,
-                        ),
+                      ScreenTitle(
+                        title: 'COVID-19 cjepivo (prva doza)',
                       ),
                       SizedBox(height: kDefaultPadding),
                       Container(
@@ -294,13 +289,8 @@ class _FirstDoseScreenState extends State<FirstDoseScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Text(
-                          'COVID-19 cjepivo (prva doza)',
-                          style: TextStyle(
-                            color: kInputTextColor,
-                            fontFamily: 'UniSans',
-                            fontSize: 24.0,
-                          ),
+                        ScreenTitle(
+                          title: 'COVID-19 cjepivo (prva doza)',
                         ),
                         SizedBox(height: kDefaultPadding),
                         Row(

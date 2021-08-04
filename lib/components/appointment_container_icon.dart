@@ -23,6 +23,7 @@ class AppointmentContainerIcon extends StatelessWidget {
           children: [
             SvgPicture.asset(
               iconAsset,
+              color: iconColor,
               height: 100.0,
               width: 100.0,
             ),
@@ -34,7 +35,7 @@ class AppointmentContainerIcon extends StatelessWidget {
                 color: kInputTextColor,
                 fontFamily: 'UniSans',
                 fontSize: 14.0,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.bold,
                 letterSpacing: 1,
               ),
             ),
