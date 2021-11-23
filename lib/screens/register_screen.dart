@@ -1,11 +1,9 @@
 import 'package:cijepise/screens/login_screen.dart';
 import 'package:cijepise/constants.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:device_info/device_info.dart';
 
 //Widgets
 import 'package:cijepise/components/input_container.dart';
@@ -120,7 +118,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               FutureBuilder(
                 future: Database.getZupanije(http.Client()),
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+                  if (!snapshot.hasData)
+                    return Center(child: CircularProgressIndicator());
                   return Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
@@ -130,7 +129,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     width: size.width,
                     height: 50.0,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: kDefaultPadding),
                       child: DropdownButton(
                         isExpanded: true,
                         hint: Text(
@@ -147,7 +147,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           fontFamily: 'UniSans',
                           fontSize: 16.0,
                         ),
-                        items: snapshot.data.map<DropdownMenuItem<String>>((item) {
+                        items:
+                            snapshot.data.map<DropdownMenuItem<String>>((item) {
                           return DropdownMenuItem<String>(
                             child: Text(item.nazivZupanije),
                             value: item.nazivZupanije,
@@ -174,7 +175,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               FutureBuilder(
                 future: Database.gradoviJson(zupanijaQuery),
                 builder: (context, snapshot) {
-                  if (!snapshot.hasData) return Center(child: CircularProgressIndicator());
+                  if (!snapshot.hasData)
+                    return Center(child: CircularProgressIndicator());
                   return Container(
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -183,9 +185,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     width: size.width,
                     height: 50.0,
                     child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
                       child: SearchableDropdown(
-                        items: snapshot.data.map<DropdownMenuItem<String>>((item) {
+                        items:
+                            snapshot.data.map<DropdownMenuItem<String>>((item) {
                           return DropdownMenuItem<String>(
                             child: Text(item['mjesto']),
                             value: item['mjesto'],
@@ -268,7 +272,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       },
                       child: Container(
                         alignment: Alignment.centerLeft,
-                        padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                        padding:
+                            EdgeInsets.symmetric(horizontal: kDefaultPadding),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(50.0),
@@ -326,9 +331,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       backgroundColor: Colors.red,
                       textColor: Colors.white,
                     );
-                  } else if (imeController.text.contains(RegExp(r'[0-9!@#$%^&*(),.?":{}|<>]'))) {
+                  } else if (imeController.text
+                      .contains(RegExp(r'[0-9!@#$%^&*(),.?":{}|<>]'))) {
                     Fluttertoast.showToast(
-                      msg: 'Ime ne smije sadržavati brojeve ili specijalne znakove',
+                      msg:
+                          'Ime ne smije sadržavati brojeve ili specijalne znakove',
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.BOTTOM,
                       backgroundColor: Colors.red,
@@ -342,9 +349,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       backgroundColor: Colors.red,
                       textColor: Colors.white,
                     );
-                  } else if (prezimeController.text.contains(RegExp(r'[0-9!@#$%^&*(),.?":{}|<>]'))) {
+                  } else if (prezimeController.text
+                      .contains(RegExp(r'[0-9!@#$%^&*(),.?":{}|<>]'))) {
                     Fluttertoast.showToast(
-                      msg: 'Prezime ne smije sadržavati brojeve ili specijalne znakove',
+                      msg:
+                          'Prezime ne smije sadržavati brojeve ili specijalne znakove',
                       toastLength: Toast.LENGTH_SHORT,
                       gravity: ToastGravity.BOTTOM,
                       backgroundColor: Colors.red,
@@ -414,7 +423,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       backgroundColor: Colors.red,
                       textColor: Colors.white,
                     );
-                  } else if (ponovljenaLozinkaController.text != lozinkaController.text) {
+                  } else if (ponovljenaLozinkaController.text !=
+                      lozinkaController.text) {
                     Fluttertoast.showToast(
                       msg: 'Lozinke nisu iste',
                       toastLength: Toast.LENGTH_SHORT,
@@ -445,7 +455,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           token,
                         );
 
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
                       }
                     });
                   }
